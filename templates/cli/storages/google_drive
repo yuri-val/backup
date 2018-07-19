@@ -1,0 +1,16 @@
+  ##
+  # Google Drive [Storage]
+  #
+  # Your initial backup must be performed manually to authorize
+  # this machine with your Google Drive account. This authorized session
+  # will be stored in `cache_path` and used for subsequent backups.
+  # Go to https://developers.google.com/drive/api/v3/quickstart/ruby
+  # to activate API and get your +credentials.json+ file. Then for first
+  # start follow instruction
+  store_with GoogleDrive do |gd|
+    gd.credential_json_path = "/path/to/my/credentials.json"
+    gd.cache_path  = ".cache"
+    # folder on Google Drive where backup will be stored
+    gd.folder_id  = "my_api_secret"
+    # gd.access_type = Google::Apis::DriveV3::AUTH_DRIVE
+  end

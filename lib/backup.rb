@@ -41,6 +41,7 @@ module Backup
     autoload :CloudFiles, File.join(STORAGE_PATH, "cloud_files")
     autoload :Ninefold,   File.join(STORAGE_PATH, "ninefold")
     autoload :Dropbox,    File.join(STORAGE_PATH, "dropbox")
+    autoload :GoogleDrive,File.join(STORAGE_PATH, "google_drive")
     autoload :FTP,        File.join(STORAGE_PATH, "ftp")
     autoload :SFTP,       File.join(STORAGE_PATH, "sftp")
     autoload :SCP,        File.join(STORAGE_PATH, "scp")

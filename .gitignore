@@ -10,3 +10,5 @@ vagrant/spec/live.yml
 .ruby-*
 doc/
 tmp/
+
+\.idea/

@@ -46,18 +46,15 @@ module Backup
         @access_type          ||= Google::Apis::DriveV3::AUTH_DRIVE
         @folder_id            ||= ''
         path.sub!(/^\//, "")
-        connection
       end
 
       private
 
       def connection
-        return @connection if @connection
-
-        @connection = Google::Apis::DriveV3::DriveService.new
-        @connection.client_options.application_name = APPLICATION_NAME
-        @connection.authorization = authorize
-
+        service = Google::Apis::DriveV3::DriveService.new
+        service.client_options.application_name = APPLICATION_NAME
+        service.authorization = authorize
+        service
       # rescue => err
       #   raise Error.wrap(err, "Authorization Failed")
       end
@@ -78,8 +75,8 @@ module Backup
           url = authorizer.get_authorization_url(base_url: OOB_URI)
           puts 'Open the following URL in the browser and enter the ' \
            "resulting code after authorization:\n" + url
-          print 'Enter obtained code here:'
-          code = gets
+          puts 'Enter obtained code here:'
+          code = $stdin.gets.chomp
           credentials = authorizer.get_and_store_credentials_from_code(
               user_id: user_id, code: code, base_url: OOB_URI
           )
@@ -88,12 +85,13 @@ module Backup
       end
 
       def transfer!
+        service = connection
         package.filenames.each do |filename|
           src = File.join(Config.tmp_path, filename)
           Logger.info "Storing '#{src} to GoogleDrive..."
-          md = Google::Apis::DriveV3::File.new(name: filename,
+          md = Google::Apis::DriveV3::File.new(name: "#{Time.now.strftime('%Y%m%dT%H%M')}_#{filename}",
                                                parents: [ @folder_id ])
-          @connection.create_file(md, upload_source: src)
+          service.create_file(md, upload_source: src)
         end
       end
 

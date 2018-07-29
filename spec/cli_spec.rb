@@ -536,7 +536,7 @@ describe "Backup::CLI" do
     it "should include the correct option values" do
       options = <<-EOS.lines.to_a.map(&:strip).map { |l| l.partition(" ") }
         databases (mongodb, mysql, openldap, postgresql, redis, riak)
-        storages (cloud_files, dropbox, google_drive, ftp, local, qiniu, rsync, s3, scp, sftp)
+        storages (cloud_files, dropbox, google_drive, mega, ftp, local, qiniu, rsync, s3, scp, sftp)
         syncers (cloud_files, rsync_local, rsync_pull, rsync_push, s3)
         encryptor (gpg, openssl)
         compressor (bzip2, custom, gzip)

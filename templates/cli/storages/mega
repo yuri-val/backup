@@ -1,0 +1,11 @@
+  ##
+  # Mega [Storage]
+  # https://mega.nz/
+  #
+  store_with Mega do |mega|
+    mega.login = "your-login@your-mail.net"
+    mega.password  = "your-very-secure-password"
+    # Path to Mega folder where backup will be stored
+    # where '/' - root folder
+    mega.path_name  = "/backups/daily/"
+  end

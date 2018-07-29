@@ -42,9 +42,8 @@ module Backup
         return current_folder if @path_name.empty? || @path_name == '/'
         folders = @path_name.split '/'
         folders.each do |p_folder|
-          c_folder = current_folder.nodes.find do |node|
-            node.type == :folder && node.name == p_folder
-          end
+          next if p_folder.empty?
+          c_folder = current_folder.folders.find {|f| f.name == p_folder }
           current_folder = c_folder || current_folder.create_folder(p_folder)
         end
         current_folder
